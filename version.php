@@ -9,8 +9,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_clonecategory'; // Declare the type and name of this plugin.
-$plugin->version = 2018082000; // Plugin released on 4th November 2017.
-$plugin->requires = 2014051200; // Moodle 2.7.0 is required.
-$plugin->maturity = MATURITY_ALPHA; // This is considered as ALPHA for production sites.
-$plugin->release = 'v0.0.1'; // This is our first.
+$plugin->component = 'local_clonecategory';
+$plugin->version = 2018082700;
+$plugin->requires = 2014051200;
+$plugin->maturity = MATURITY_BETA;
+$plugin->release = 'v0.9';

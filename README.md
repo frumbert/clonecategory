@@ -6,6 +6,8 @@ a plugin to perform a backup/restore of every course in a category to a newly sp
 
 Put into your /local/ plugins folder and hit up the site notifications as admin
 
+or `cd ./local && git clone https://github.com/frumbert/clonecategory.git clonecategory`
+
 ## Usage
 
 First, some assumptions.

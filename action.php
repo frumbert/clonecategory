@@ -1,4 +1,9 @@
 <?php
+/**
+ * @package  clonecategory
+ * @copyright 2018, tim@avide.com.au
+ * @license MIT
+ */
 
 require(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
@@ -132,7 +137,9 @@ if ($mform->is_cancelled()) {
 
             $newid = $clone['id'];
             $newshortname = $clone['shortname'];
+            $newfullname = str_replace($src->idnumber, $dest->idnumber, $course->fullname);
 
+            $DB->set_field_select('course', 'fullname', $newfullname, "id = ?", [$newid]);
             $DB->set_field_select('course', 'startdate', $data->startdate, "id = ?", [$newid]);
             $DB->set_field_select('course', 'enddate', $data->enddate, "id = ?", [$newid]);
 

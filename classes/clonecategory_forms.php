@@ -118,4 +118,8 @@ class local_clonecategory_form extends moodleform {
         }
         return $errors;
     }
+
+    public function reset() {
+        $this->_form->updateSubmission(null, null);
+    }
 }

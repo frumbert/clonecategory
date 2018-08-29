@@ -91,11 +91,16 @@ if ($mform->is_cancelled()) {
 
     // if a destaintion category name was supplied, create it and update the $dest object
     if (!empty($data->destcategoryname) && !empty($data->destcategoryidnumber)) {
-        $dest = coursecat::create([
-            "name" => trim($data->destcategoryname),
-            "idnumber" => trim($data->destcategoryidnumber),
-            "parent" => $dest->id
-        ]);
+        if ($rec = $DB->get_record('course_categories', array('name' => trim($data->destcategoryname), "idnumber" => trim($data->destcategoryidnumber), "parent" => $dest->id))) {
+            // we have an existing destination with all these details, use that one
+            $dest = coursecat::get($rec->id);
+        } else {
+            $dest = coursecat::create([
+                "name" => trim($data->destcategoryname),
+                "idnumber" => trim($data->destcategoryidnumber),
+                "parent" => $dest->id
+            ]);
+        }
     }
 
     // core_course_external::duplicate_course requries
@@ -161,12 +166,21 @@ if ($mform->is_cancelled()) {
 
     $log[] = "<li><b>Clone Process completed</b><br/><hr/></li>";
 
+    $mform->reset();
+
 }
 echo $OUTPUT->header();
 echo $OUTPUT->heading($strtitle);
 
-echo "<ul>", implode(PHP_EOL, $log), "</ul>";
+$logoutput = implode(PHP_EOL, $log);
 
-$mform->display();
+if (!empty($logoutput)) {
+    echo "<ul>", $logoutput, "</ul>";
+    echo $OUTPUT->single_button(new moodle_url("/local/clonecategory/action.php"), "Start over");
+} else {
+    $mform->display();
+}
+
+
 
 echo $OUTPUT->footer();

@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->libdir.'/formslib.php');
-require_once($CFG->libdir.'/coursecatlib.php');
 
 /**
  * Clone category form.
@@ -46,7 +45,7 @@ class local_clonecategory_form extends moodleform {
         $button_label = get_string('clone_courses', 'local_clonecategory');
 
         // get a select-friendly list of the categories
-        $options = coursecat::make_categories_list('moodle/category:manage'); // array keys are out-of-order but match the mdl_course_category table ids
+        $options = core_course_category::make_categories_list('moodle/category:manage'); // array keys are out-of-order but match the mdl_course_category table ids
         $mform->addElement('select', 'source', get_string('source_category','local_clonecategory'), $options);
         $mform->addRule('source', get_string('required'), 'required', null);
 

@@ -11,7 +11,6 @@ require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/externallib.php');
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
-require_once($CFG->libdir . '/coursecatlib.php');
 require_once(dirname(__FILE__).'/classes/clonecategory_forms.php');
 
 $context = context_system::instance();
@@ -86,16 +85,16 @@ if ($mform->is_cancelled()) {
     core_php_time_limit::raise();
 
     // category selection
-    $src = coursecat::get($data->source);
-    $dest = coursecat::get($data->destination);
+    $src = core_course_category::get($data->source);
+    $dest = core_course_category::get($data->destination);
 
     // if a destaintion category name was supplied, create it and update the $dest object
     if (!empty($data->destcategoryname) && !empty($data->destcategoryidnumber)) {
         if ($rec = $DB->get_record('course_categories', array('name' => trim($data->destcategoryname), "idnumber" => trim($data->destcategoryidnumber), "parent" => $dest->id))) {
             // we have an existing destination with all these details, use that one
-            $dest = coursecat::get($rec->id);
+            $dest = core_course_category::get($rec->id);
         } else {
-            $dest = coursecat::create([
+            $dest = core_course_category::create([
                 "name" => trim($data->destcategoryname),
                 "idnumber" => trim($data->destcategoryidnumber),
                 "parent" => $dest->id

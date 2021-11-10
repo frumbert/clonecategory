@@ -12,6 +12,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['plugintitle'] = 'Clone all courses in a category';
 $string['action_link'] = 'Clone Category';
+$string['pluginname'] = 'Clone Category';
 
 $string['source_category'] = 'Source category';
 $string['destination_category'] = 'Destination parent category';
